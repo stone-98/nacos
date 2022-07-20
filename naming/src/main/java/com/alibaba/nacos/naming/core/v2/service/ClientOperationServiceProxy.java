@@ -46,6 +46,7 @@ public class ClientOperationServiceProxy implements ClientOperationService {
     
     @Override
     public void registerInstance(Service service, Instance instance, String clientId) {
+        // 通过ClientOperationServiceProxy判断具体是通过临时实例的实现还是持久实例的实现去注册实例
         final ClientOperationService operationService = chooseClientOperationService(instance);
         operationService.registerInstance(service, instance, clientId);
     }

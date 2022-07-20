@@ -101,6 +101,7 @@ public class InstanceOperatorClientImpl implements InstanceOperator {
         String clientId = IpPortBasedClient.getClientId(instance.toInetAddr(), ephemeral);
         createIpPortClientIfAbsent(clientId);
         Service service = getService(namespaceId, serviceName, ephemeral);
+        // 通过ClientOperationServiceProxy去注册实例
         clientOperationService.registerInstance(service, instance, clientId);
     }
     

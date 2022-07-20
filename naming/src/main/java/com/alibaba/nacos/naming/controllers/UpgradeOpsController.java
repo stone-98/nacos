@@ -400,12 +400,13 @@ public class UpgradeOpsController {
     @Secured(action = ActionTypes.WRITE)
     public String registerInstance(@RequestParam(defaultValue = "v2", required = false) String ver,
             HttpServletRequest request) throws Exception {
-        
+        // 从request中获取namespace
         final String namespaceId = WebUtils
                 .optional(request, CommonParams.NAMESPACE_ID, Constants.DEFAULT_NAMESPACE_ID);
         final String serviceName = WebUtils.required(request, CommonParams.SERVICE_NAME);
         NamingUtils.checkServiceNameFormat(serviceName);
         
+        // 利用构建者模式构建一个实例
         final Instance instance = HttpRequestInstanceBuilder.newBuilder()
                 .setDefaultInstanceEphemeral(switchDomain.isDefaultInstanceEphemeral()).setRequest(request).build();
         
